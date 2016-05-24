@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>PODCAST</title>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+<script src="https://code.jquery.com/jquery.js"></script>
+<script src="http://d3js.org/d3.v3.min.js"></script>
+<script src="https://raw.githubusercontent.com/pyrsmk/W/master/W.min.js"></script>
+<script type="text/javascript" src="./ex40.js"></script>
+<script type="text/javascript" src="./ex41.js"></script>
+
+</meta>
+<style>
+body{
+    width:1060px;
+    margin:50px auto;
+}
+
+.figcontainer{
+overflow:auto;
+}
+
+#idhG{
+  background-color:grey;
+}
+
+#idP{
+  background-color:#ffcc00;
+
+}
+
+path {  stroke: #fff; }
+
+path:hover {  opacity:0.9; }
+
+rect:hover {  fill:blue; }
+
+.axis {
+  font: 10px sans-serif;
+}
+
+.legend tr{    border-bottom:1px solid grey; }
+
+.legend tr:first-child{    border-top:1px solid grey; }
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+.x.axis path {  display: none; }
+
+.legend{
+    margin-bottom:76px;
+    display:inline-block;
+    border-collapse: collapse;
+    border-spacing: 0px;
+}
+
+.legend td{
+    padding:4px 5px;
+    vertical-align:bottom;
+}
+
+.legendFreq, .legendPerc{
+    align:right;
+    width:50px;
+}
+
+.barvalue{
+  font-size: 10;
+}
+
+</style>
+
+</meta>
+<body>
+<div id='dashboard'>
+
+
+<div class="container figcontainer">
+<div class="row">
+<div class="col-lg-6 figs" id="idhG">
+</div>
+<div class="col-lg-6 figs" id="idP">
+</div>
+</div>
+</div>
+
+</body>
+<script>
+
+var freqData=[
+  {State: 'CNewb',freq:{low: 0.2302,mid: 0.191,high: 0.1367}},
+  {State: 'JSJbb',freq:{low: 0.1787,mid: 0.1843,high: 0.1511}},
+  {State: 'ChLog',freq:{low: 0.0893,mid: 0.0831,high: 0.1367}},
+  {State: 'STalk',freq:{low: 0.0619,mid: 0.1169,high: 0.0647}},
+  {State: 'RRogs',freq:{low: 0.0893,mid: 0.0921,high: 0.0719}},
+  {State: 'DvTea',freq:{low: 0.0997,mid: 0.0854,high: 0.0647}},
+  {State: 'SEDay',freq:{low: 0.0447,mid: 0.0629,high: 0.1079}},
+  {State: 'TPyth',freq:{low: 0.0722,mid: 0.0382,high: 0.0216}},
+  {State: 'PTDwn',freq:{low: 0.0515,mid: 0.0382,high: 0.0144}},
+  {State: 'JSAir',freq:{low: 0.0137,mid: 0.0382,high: 0.0504}},
+  {State: 'Hlmin',freq:{low: 0.0069,mid: 0.018,high: 0.0647}},
+  {State: 'DNRck',freq:{low: 0.0069,mid: 0.0135,high: 0.0719}},
+  {State: 'CBlck',freq:{low: 0.0241,mid: 0.0157,high: 0.0072}},
+  {State: 'WbAhd',freq:{low: 0.0103,mid: 0.018,high: 0.0216}}
+];
+
+freqData.forEach(function(d){d.total=d.freq.low+d.freq.mid+d.freq.high;});
+
+function segColor(c){ return {low:"#807dba", mid:"#e08214",high:"#41ab5d"}[c]; }
+
+
+// calculate total frequency by segment for all state.
+var tF = ['low','mid','high'].map(function(d){
+	return {type:d, freq: d3.sum(freqData.map(function(t){ return t.freq[d];}))};
+});
+
+// calculate total frequency by state for all segment.
+var sF = freqData.map(function(d){return [d.State,d.total];});
+
+var idhG = "#idhG";
+var idP = "#idP";
+
+function randomDataset() {
+  return freqData.map(function(d){d.total = ~~(Math.random() * 1000); return [d.State,d.total];})
+};
+
+function randomDataset() {
+  return freqData.map(function(d){d.total = ~~(Math.random() * 1000); return d.total;})
+};
+
+function randomDataset() {
+  return tF.map(function(d){d.freq = ~~(Math.random() * 1000); return {type:d.type, freq: d.freq};})
+};
+
+
+// //////////////////////////////////
+// // Usage chart1.js
+// /////////////////////////////////
+//
+//
+// // // create function to update the bars. This will be used by pie-chart.
+// //
+// // //http://stackoverflow.com/questions/18575582/how-to-detect-responsive-breakpoints-of-twitter-bootstrap-3-using-javascript
+// // function updateScales() {
+// // if ($(window).width() > 500) {
+// // hGDimw = 500 - rightPadding;
+// // }else{
+// // hGDimw = $(window).width() - .10*$(window).width();
+// // }
+// // xScale
+// // .rangeBands([0, hGDimw], 0.1);
+// // }
+// //
+// // function updateAxes() {
+// // xAxis.transition().call(d3.svg.axis().scale(xScale).orient("bottom"));
+// // }
+// //
+// //
+// // /*----
+// // UPDATE
+// // ----*/
+// // hG.update_test = function() {
+// // updateScales(); updateAxes(); updateBars();
+// // }
+// //
+// // return hG
+// //
+// // }
+//
+//
+// //Global area...
+//
+//
+// //////////////////////////////////////////////////////////////////////////
+//
+//
+//
+// function initEvents(x) {
+// 	W.addListener(x);
+// }
+//
+// // barchart
+// //   .on("bcmouseover", function(d){
+// //     // filter for selected state.
+// //     var st = freqData.filter(function(s){ return s.State == d[0];})[0];
+// //     //console.log("st in mo hG ", st);
+// //     var nD = d3.keys(st.freq).map(function(s){ return {type:s, freq:st.freq[s]};});
+// //     // call update functions of pie-chart and legend.
+// //     pC.update(nD);
+// //     //leg.update(nD);
+// //   })
+// //   .on("bcmouseout", function(d){
+// //     // reset the pie-chart and legend.
+// //     pC.update(tF);
+// //     //leg.update(tF);
+// //   })
+//
+// // var piechart = d3.chartandpie.piechart().pieDim("250");
+// // piechart
+// //   .on("pmouseover", function(d){
+// //     var fD = freqData.map(function(v){return [v.State, v.freq[d.data.type]];});
+// //     //segColor(d.data.type);
+// //     d3.select(idhG).datum(fD).call(barchart);
+// //   })
+// //   .on("pmouseout", function(d){
+// //     var fD = freqData.map(function(v){return [v.State,v.total];});
+// //     d3.select(idhG).datum(fD).call(barchart);
+// //   })
+//
+// var barchart = d3.chartandpie.barchart().widthb("900").heightb("900");
+//
+// var updatebar = function(){
+//   var fD = randomDataset();
+//   d3.select(idhG).datum(fD).call(barchart);
+// };
+//
+//
+// updatebar();
+//
+// setInterval(updatebar, 5000);
+//
+
+
+//////////////////////////////////
+// Usage ex40.js
+/////////////////////////////////
+
+// var chart = d3.custom.barChart();
+//
+// function update() {
+//     var data = randomDataset();
+//     d3.select(idhG)
+//         .datum(data)
+//         .call(chart);
+// }
+//
+// update();
+//
+// setInterval(update, 1000);
+
+//////////////////////////////////
+// Usage ex41.js
+/////////////////////////////////
+
+var pie = d3.custom.pieChart();
+
+function update() {
+    var data = randomDataset();
+    console.log(data)
+    d3.select(idP)
+        .datum(data)
+        .call(pie);
+}
+
+update();
+
+setInterval(update, 500);
+
+</script>
