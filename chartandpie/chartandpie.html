@@ -7,7 +7,12 @@
 <script src="https://code.jquery.com/jquery.js"></script>
 <script src="http://d3js.org/d3.v3.min.js"></script>
 <script src="https://raw.githubusercontent.com/pyrsmk/W/master/W.min.js"></script>
+<<<<<<< HEAD
 <script type="text/javascript" src="./exBOTH.js"></script>
+=======
+<script type="text/javascript" src="./ex40.js"></script>
+<script type="text/javascript" src="./ex41.js"></script>
+>>>>>>> c2a7955571740ae5627a6bceebfd50bfb490648f
 
 </meta>
 <style>
@@ -29,17 +34,23 @@ overflow:auto;
 
 }
 
+<<<<<<< HEAD
 #idT{
   background-color:#ffcc00;
 
 }
 
+=======
+>>>>>>> c2a7955571740ae5627a6bceebfd50bfb490648f
 path {  stroke: #fff; }
 
 path:hover {  opacity:0.9; }
 
+<<<<<<< HEAD
 /*rect {fill:steelblue; }*/
 
+=======
+>>>>>>> c2a7955571740ae5627a6bceebfd50bfb490648f
 rect:hover {  fill:blue; }
 
 .axis {
@@ -91,6 +102,7 @@ rect:hover {  fill:blue; }
 <div class="row">
 <div class="col-lg-6 figs" id="idhG">
 </div>
+<<<<<<< HEAD
 <div class="col-lg-6 figs">
 <div class="row">
 <div class="col-md-12" id="idP">
@@ -100,6 +112,9 @@ rect:hover {  fill:blue; }
 <div class="col-md-12" id="idT">
 </div>
 </div>
+=======
+<div class="col-lg-6 figs" id="idP">
+>>>>>>> c2a7955571740ae5627a6bceebfd50bfb490648f
 </div>
 </div>
 </div>
@@ -108,6 +123,7 @@ rect:hover {  fill:blue; }
 <script>
 
 var freqData=[
+<<<<<<< HEAD
   {Podcast: 'CNewb',freq:{low: 0.2302,mid: 0.191,high: 0.1367}},
   {Podcast: 'JSJbb',freq:{low: 0.1787,mid: 0.1843,high: 0.1511}},
   {Podcast: 'ChLog',freq:{low: 0.0893,mid: 0.0831,high: 0.1367}},
@@ -122,6 +138,22 @@ var freqData=[
   {Podcast: 'DNRck',freq:{low: 0.0069,mid: 0.0135,high: 0.0719}},
   {Podcast: 'CBlck',freq:{low: 0.0241,mid: 0.0157,high: 0.0072}},
   {Podcast: 'WbAhd',freq:{low: 0.0103,mid: 0.018,high: 0.0216}}
+=======
+  {State: 'CNewb',freq:{low: 0.2302,mid: 0.191,high: 0.1367}},
+  {State: 'JSJbb',freq:{low: 0.1787,mid: 0.1843,high: 0.1511}},
+  {State: 'ChLog',freq:{low: 0.0893,mid: 0.0831,high: 0.1367}},
+  {State: 'STalk',freq:{low: 0.0619,mid: 0.1169,high: 0.0647}},
+  {State: 'RRogs',freq:{low: 0.0893,mid: 0.0921,high: 0.0719}},
+  {State: 'DvTea',freq:{low: 0.0997,mid: 0.0854,high: 0.0647}},
+  {State: 'SEDay',freq:{low: 0.0447,mid: 0.0629,high: 0.1079}},
+  {State: 'TPyth',freq:{low: 0.0722,mid: 0.0382,high: 0.0216}},
+  {State: 'PTDwn',freq:{low: 0.0515,mid: 0.0382,high: 0.0144}},
+  {State: 'JSAir',freq:{low: 0.0137,mid: 0.0382,high: 0.0504}},
+  {State: 'Hlmin',freq:{low: 0.0069,mid: 0.018,high: 0.0647}},
+  {State: 'DNRck',freq:{low: 0.0069,mid: 0.0135,high: 0.0719}},
+  {State: 'CBlck',freq:{low: 0.0241,mid: 0.0157,high: 0.0072}},
+  {State: 'WbAhd',freq:{low: 0.0103,mid: 0.018,high: 0.0216}}
+>>>>>>> c2a7955571740ae5627a6bceebfd50bfb490648f
 ];
 
 freqData.forEach(function(d){d.total=d.freq.low+d.freq.mid+d.freq.high;});
@@ -135,6 +167,7 @@ var tF = ['low','mid','high'].map(function(d){
 });
 
 // calculate total frequency by state for all segment.
+<<<<<<< HEAD
 var sF = freqData.map(function(d){return [d.Podcast,d.total];});
 
 var idhG = "#idhG";
@@ -151,11 +184,68 @@ function randomDatasetBAR() {
 };
 
 function randomDatasetPIE() {
+=======
+var sF = freqData.map(function(d){return [d.State,d.total];});
+
+var idhG = "#idhG";
+var idP = "#idP";
+
+function randomDataset() {
+  return freqData.map(function(d){d.total = ~~(Math.random() * 1000); return [d.State,d.total];})
+};
+
+function randomDataset() {
+  return freqData.map(function(d){d.total = ~~(Math.random() * 1000); return d.total;})
+};
+
+function randomDataset() {
+>>>>>>> c2a7955571740ae5627a6bceebfd50bfb490648f
   return tF.map(function(d){d.freq = ~~(Math.random() * 1000); return {type:d.type, freq: d.freq};})
 };
 
 
+<<<<<<< HEAD
 
+=======
+// //////////////////////////////////
+// // Usage chart1.js
+// /////////////////////////////////
+//
+//
+// // // create function to update the bars. This will be used by pie-chart.
+// //
+// // //http://stackoverflow.com/questions/18575582/how-to-detect-responsive-breakpoints-of-twitter-bootstrap-3-using-javascript
+// // function updateScales() {
+// // if ($(window).width() > 500) {
+// // hGDimw = 500 - rightPadding;
+// // }else{
+// // hGDimw = $(window).width() - .10*$(window).width();
+// // }
+// // xScale
+// // .rangeBands([0, hGDimw], 0.1);
+// // }
+// //
+// // function updateAxes() {
+// // xAxis.transition().call(d3.svg.axis().scale(xScale).orient("bottom"));
+// // }
+// //
+// //
+// // /*----
+// // UPDATE
+// // ----*/
+// // hG.update_test = function() {
+// // updateScales(); updateAxes(); updateBars();
+// // }
+// //
+// // return hG
+// //
+// // }
+//
+//
+// //Global area...
+//
+//
+>>>>>>> c2a7955571740ae5627a6bceebfd50bfb490648f
 // //////////////////////////////////////////////////////////////////////////
 //
 //
@@ -164,6 +254,25 @@ function randomDatasetPIE() {
 // 	W.addListener(x);
 // }
 //
+<<<<<<< HEAD
+=======
+// // barchart
+// //   .on("bcmouseover", function(d){
+// //     // filter for selected state.
+// //     var st = freqData.filter(function(s){ return s.State == d[0];})[0];
+// //     //console.log("st in mo hG ", st);
+// //     var nD = d3.keys(st.freq).map(function(s){ return {type:s, freq:st.freq[s]};});
+// //     // call update functions of pie-chart and legend.
+// //     pC.update(nD);
+// //     //leg.update(nD);
+// //   })
+// //   .on("bcmouseout", function(d){
+// //     // reset the pie-chart and legend.
+// //     pC.update(tF);
+// //     //leg.update(tF);
+// //   })
+//
+>>>>>>> c2a7955571740ae5627a6bceebfd50bfb490648f
 // // var piechart = d3.chartandpie.piechart().pieDim("250");
 // // piechart
 // //   .on("pmouseover", function(d){
@@ -194,6 +303,7 @@ function randomDatasetPIE() {
 // Usage ex40.js
 /////////////////////////////////
 
+<<<<<<< HEAD
  var chart = d3.custom.barChart();
 
  function updateBAR(data, color) {
@@ -205,6 +315,20 @@ function randomDatasetPIE() {
          .datum(data)
          .call(chart.color(color));
  }
+=======
+// var chart = d3.custom.barChart();
+//
+// function update() {
+//     var data = randomDataset();
+//     d3.select(idhG)
+//         .datum(data)
+//         .call(chart);
+// }
+//
+// update();
+//
+// setInterval(update, 1000);
+>>>>>>> c2a7955571740ae5627a6bceebfd50bfb490648f
 
 //////////////////////////////////
 // Usage ex41.js
@@ -212,14 +336,21 @@ function randomDatasetPIE() {
 
 var pie = d3.custom.pieChart();
 
+<<<<<<< HEAD
 function updatePIE(data) {
     if (!arguments.length) {data = randomDatasetPIE(); return data};
     //console.log(data)
+=======
+function update() {
+    var data = randomDataset();
+    console.log(data)
+>>>>>>> c2a7955571740ae5627a6bceebfd50bfb490648f
     d3.select(idP)
         .datum(data)
         .call(pie);
 }
 
+<<<<<<< HEAD
 
 //////////////////////////////////
 // Usage ex42.js
@@ -278,5 +409,10 @@ updatePIE(tF);
 //setInterval(updatePIE, 500);
 
 updateLEG(tF);
+=======
+update();
+
+setInterval(update, 500);
+>>>>>>> c2a7955571740ae5627a6bceebfd50bfb490648f
 
 </script>
