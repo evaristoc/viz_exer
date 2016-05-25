@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Script-Type" content="text/javascript; charset=utf-8">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <script src="https://code.jquery.com/jquery.js"></script>
+    <script src="http://d3js.org/d3.v3.min.js"></script>
+    <script src="https://raw.githubusercontent.com/pyrsmk/W/master/W.min.js"></script>
+    <script type="text/javascript" src="./ex4.js"></script>
+    <style>
+      .axis path, .axis line {
+        fill: none;
+        stroke: black;
+        shape-rendering: crispEdges;
+      }
+      .axis path {
+        fill: none;
+        stroke: none;
+      }
+      .bar {
+        fill: steelblue;
+        stroke: white;
+      }
+    </style>
+  </head>
+  <body ng-app="App" ng-controller="Controller">
+    <div class="container">
+      <div class="row">
+        <div class="span12 page-header">
+          <h1>
+            Chapter 4 - Reusable Bar Chart With Axes
+          </h1>
+        </div>
+      </div>
+      <div class="row">
+        <div class="span12 lead">
+          Chart shows new data every second using a transition (<em>animation</em>). No user interaction available.
+        </div>
+      </div>
+      <div class="row">
+        <div class="span6 offset3">
+          <div id="figure"></div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="span12">
+          <h3>Code</h3>
+        </div>
+      </div>
+      <div class="row">
+        <div class="span12">
+          <div ng-include src="'snippet.html'"></div>
+        </div>
+      </div>
+    </div>
+    <script type="text/javascript" src="script.js"></script>
+  </body>
+</html>
