@@ -7,25 +7,21 @@
 <script src="https://code.jquery.com/jquery.js"></script>
 <script src="http://d3js.org/d3.v3.min.js"></script>
 <script src="https://raw.githubusercontent.com/pyrsmk/W/master/W.min.js"></script>
-<<<<<<< HEAD
 <script type="text/javascript" src="./exBOTH.js"></script>
-=======
-<script type="text/javascript" src="./ex40.js"></script>
-<script type="text/javascript" src="./ex41.js"></script>
->>>>>>> c2a7955571740ae5627a6bceebfd50bfb490648f
 
 </meta>
 <style>
-body{
-    width:1060px;
-    margin:50px auto;
-}
+    
+/*body{
+    width:1200px;
+    margin:10px;
+}*/
 
 .figcontainer{
 overflow:auto;
 }
 
-#idhG{
+/*#idhG{
   background-color:grey;
 }
 
@@ -34,26 +30,29 @@ overflow:auto;
 
 }
 
-<<<<<<< HEAD
 #idT{
   background-color:#ffcc00;
+}*/
 
-}
+#Comment{font-size:12px; text-align:right;}
 
-=======
->>>>>>> c2a7955571740ae5627a6bceebfd50bfb490648f
+.row.a {background-color:grey;}
+
+.row.b {background-color:#ffcc00;}
+
 path {  stroke: #fff; }
 
 path:hover {  opacity:0.9; }
 
-<<<<<<< HEAD
 /*rect {fill:steelblue; }*/
 
-=======
->>>>>>> c2a7955571740ae5627a6bceebfd50bfb490648f
 rect:hover {  fill:blue; }
 
-.axis {
+.x-axis-group {
+  font: 10px sans-serif;
+}
+
+.y-axis-group {
   font: 10px sans-serif;
 }
 
@@ -71,7 +70,9 @@ rect:hover {  fill:blue; }
 .x.axis path {  display: none; }
 
 .legend{
-    margin-bottom:76px;
+    margin-top: 10px;
+    padding:12px;
+    margin-left: 35px;
     display:inline-block;
     border-collapse: collapse;
     border-spacing: 0px;
@@ -99,76 +100,75 @@ rect:hover {  fill:blue; }
 
 
 <div class="container figcontainer">
+<div class="row a">
+<div class="col-xl-4 col-lg-4 col-md-5 figs" id="idhG"></div>
+<!--</div>-->
+<!--<div class="row b">-->
+<div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-xs-12 figs" id="idT"></div>
+<div class="col-xl-4 col-lg-4 col-md-3 col-sm-12 col-xs-12 figs" id="Comment"><p>In general, respondents suggested as useful <b>Codenewbie, JSJabber and Changelog</b>.<br>They differed in their individual preference according to time programming though.</br></p></div>
+</div>
+<div class="row a">
+<div class="col-xl-12 col-lg-12 col-md-6 hidden-xs" style="margin-left:60%;" id="idP"></div>
+</div>
+</div>
+
+</div>
+
+<!--<div id='dashboard'>
+
+
+<div class="container figcontainer">
 <div class="row">
-<div class="col-lg-6 figs" id="idhG">
+<div class="col-lg-7 figs" id="idhG">
 </div>
-<<<<<<< HEAD
-<div class="col-lg-6 figs">
-<div class="row">
-<div class="col-md-12" id="idP">
-</div>
-</div>
+<div class="col-lg-5 figs">
 <div class="row">
 <div class="col-md-12" id="idT">
 </div>
 </div>
-=======
-<div class="col-lg-6 figs" id="idP">
->>>>>>> c2a7955571740ae5627a6bceebfd50bfb490648f
+<div class="row">
+<div class="col-md-12 hidden-xs" id="idP">
 </div>
 </div>
 </div>
+</div>
+</div>-->
 
 </body>
 <script>
 
 var freqData=[
-<<<<<<< HEAD
-  {Podcast: 'CNewb',freq:{low: 0.2302,mid: 0.191,high: 0.1367}},
-  {Podcast: 'JSJbb',freq:{low: 0.1787,mid: 0.1843,high: 0.1511}},
-  {Podcast: 'ChLog',freq:{low: 0.0893,mid: 0.0831,high: 0.1367}},
-  {Podcast: 'STalk',freq:{low: 0.0619,mid: 0.1169,high: 0.0647}},
-  {Podcast: 'RRogs',freq:{low: 0.0893,mid: 0.0921,high: 0.0719}},
-  {Podcast: 'DvTea',freq:{low: 0.0997,mid: 0.0854,high: 0.0647}},
-  {Podcast: 'SEDay',freq:{low: 0.0447,mid: 0.0629,high: 0.1079}},
-  {Podcast: 'TPyth',freq:{low: 0.0722,mid: 0.0382,high: 0.0216}},
-  {Podcast: 'PTDwn',freq:{low: 0.0515,mid: 0.0382,high: 0.0144}},
-  {Podcast: 'JSAir',freq:{low: 0.0137,mid: 0.0382,high: 0.0504}},
-  {Podcast: 'Hlmin',freq:{low: 0.0069,mid: 0.018,high: 0.0647}},
-  {Podcast: 'DNRck',freq:{low: 0.0069,mid: 0.0135,high: 0.0719}},
-  {Podcast: 'CBlck',freq:{low: 0.0241,mid: 0.0157,high: 0.0072}},
-  {Podcast: 'WbAhd',freq:{low: 0.0103,mid: 0.018,high: 0.0216}}
-=======
-  {State: 'CNewb',freq:{low: 0.2302,mid: 0.191,high: 0.1367}},
-  {State: 'JSJbb',freq:{low: 0.1787,mid: 0.1843,high: 0.1511}},
-  {State: 'ChLog',freq:{low: 0.0893,mid: 0.0831,high: 0.1367}},
-  {State: 'STalk',freq:{low: 0.0619,mid: 0.1169,high: 0.0647}},
-  {State: 'RRogs',freq:{low: 0.0893,mid: 0.0921,high: 0.0719}},
-  {State: 'DvTea',freq:{low: 0.0997,mid: 0.0854,high: 0.0647}},
-  {State: 'SEDay',freq:{low: 0.0447,mid: 0.0629,high: 0.1079}},
-  {State: 'TPyth',freq:{low: 0.0722,mid: 0.0382,high: 0.0216}},
-  {State: 'PTDwn',freq:{low: 0.0515,mid: 0.0382,high: 0.0144}},
-  {State: 'JSAir',freq:{low: 0.0137,mid: 0.0382,high: 0.0504}},
-  {State: 'Hlmin',freq:{low: 0.0069,mid: 0.018,high: 0.0647}},
-  {State: 'DNRck',freq:{low: 0.0069,mid: 0.0135,high: 0.0719}},
-  {State: 'CBlck',freq:{low: 0.0241,mid: 0.0157,high: 0.0072}},
-  {State: 'WbAhd',freq:{low: 0.0103,mid: 0.018,high: 0.0216}}
->>>>>>> c2a7955571740ae5627a6bceebfd50bfb490648f
+  {Podcast: 'CNewb', Name: 'CodeNewbie', freq:{low: 0.2302,mid: 0.191,high: 0.1367}},
+  {Podcast: 'JSJbb', Name: 'JSJabber', freq:{low: 0.1787,mid: 0.1843,high: 0.1511}},
+  {Podcast: 'ChLog', Name: 'Changelog', freq:{low: 0.0893,mid: 0.0831,high: 0.1367}},
+  {Podcast: 'STalk', Name: 'ShopTalk', freq:{low: 0.0619,mid: 0.1169,high: 0.0647}},
+  {Podcast: 'RRogs', Name: 'RubyRogues', freq:{low: 0.0893,mid: 0.0921,high: 0.0719}},
+  {Podcast: 'DvTea', Name: 'DeveloperTea', freq:{low: 0.0997,mid: 0.0854,high: 0.0647}},
+  {Podcast: 'SEDay', Name:'SoftwareEngineerDaily', freq:{low: 0.0447,mid: 0.0629,high: 0.1079}},
+  {Podcast: 'TPyth', Name: 'TalkMePython', freq:{low: 0.0722,mid: 0.0382,high: 0.0216}},
+  {Podcast: 'PTDwn', Name: 'ProgrammingThrowDown', freq:{low: 0.0515,mid: 0.0382,high: 0.0144}},
+  {Podcast: 'JSAir', Name: 'JSAir', freq:{low: 0.0137,mid: 0.0382,high: 0.0504}},
+  {Podcast: 'Hlmin', Name: 'Hanselminutes', freq:{low: 0.0069,mid: 0.018,high: 0.0647}},
+  {Podcast: 'DNRck', Name: 'DotNetRocks', freq:{low: 0.0069,mid: 0.0135,high: 0.0719}},
+  {Podcast: 'CBlck', Name: 'CodingBlocks', freq:{low: 0.0241,mid: 0.0157,high: 0.0072}},
+  {Podcast: 'WbAhd', Name: 'WebAhead', freq:{low: 0.0103,mid: 0.018,high: 0.0216}}
 ];
 
 freqData.forEach(function(d){d.total=d.freq.low+d.freq.mid+d.freq.high;});
+var total=[];
+freqData.forEach(function(d){total.push(d.total)})
+var sum = total.reduce(function(a, b) { return a + b; }, 0);
 
 function segColor(c){ return {low:"#807dba", mid:"#e08214",high:"#41ab5d"}[c]; }
 
 
 // calculate total frequency by segment for all state.
 var tF = ['low','mid','high'].map(function(d){
-	return {type:d, freq: d3.sum(freqData.map(function(t){ return t.freq[d];}))};
+	return {Podcast: 'All', type:d, freq: d3.sum(freqData.map(function(t){ return t.freq[d];}))};
 });
 
 // calculate total frequency by state for all segment.
-<<<<<<< HEAD
-var sF = freqData.map(function(d){return [d.Podcast,d.total];});
+var sF = freqData.map(function(d){return [d.Podcast,d.total/sum,d.Name];});
 
 var idhG = "#idhG";
 var idP = "#idP";
@@ -184,151 +184,53 @@ function randomDatasetBAR() {
 };
 
 function randomDatasetPIE() {
-=======
-var sF = freqData.map(function(d){return [d.State,d.total];});
-
-var idhG = "#idhG";
-var idP = "#idP";
-
-function randomDataset() {
-  return freqData.map(function(d){d.total = ~~(Math.random() * 1000); return [d.State,d.total];})
-};
-
-function randomDataset() {
-  return freqData.map(function(d){d.total = ~~(Math.random() * 1000); return d.total;})
-};
-
-function randomDataset() {
->>>>>>> c2a7955571740ae5627a6bceebfd50bfb490648f
   return tF.map(function(d){d.freq = ~~(Math.random() * 1000); return {type:d.type, freq: d.freq};})
 };
 
 
-<<<<<<< HEAD
+function updateWidth() {
+    //var width;
+    if ($(window).width() > 500) {
+      width = 600;
+    }else{
+      width = $(window).width() - .10*$(window).width();
+    }
+    console.log(width);
+    return width
+}
 
-=======
-// //////////////////////////////////
-// // Usage chart1.js
-// /////////////////////////////////
-//
-//
-// // // create function to update the bars. This will be used by pie-chart.
-// //
-// // //http://stackoverflow.com/questions/18575582/how-to-detect-responsive-breakpoints-of-twitter-bootstrap-3-using-javascript
-// // function updateScales() {
-// // if ($(window).width() > 500) {
-// // hGDimw = 500 - rightPadding;
-// // }else{
-// // hGDimw = $(window).width() - .10*$(window).width();
-// // }
-// // xScale
-// // .rangeBands([0, hGDimw], 0.1);
-// // }
-// //
-// // function updateAxes() {
-// // xAxis.transition().call(d3.svg.axis().scale(xScale).orient("bottom"));
-// // }
-// //
-// //
-// // /*----
-// // UPDATE
-// // ----*/
-// // hG.update_test = function() {
-// // updateScales(); updateAxes(); updateBars();
-// // }
-// //
-// // return hG
-// //
-// // }
-//
-//
-// //Global area...
-//
-//
->>>>>>> c2a7955571740ae5627a6bceebfd50bfb490648f
-// //////////////////////////////////////////////////////////////////////////
-//
-//
-//
-// function initEvents(x) {
-// 	W.addListener(x);
-// }
-//
-<<<<<<< HEAD
-=======
-// // barchart
-// //   .on("bcmouseover", function(d){
-// //     // filter for selected state.
-// //     var st = freqData.filter(function(s){ return s.State == d[0];})[0];
-// //     //console.log("st in mo hG ", st);
-// //     var nD = d3.keys(st.freq).map(function(s){ return {type:s, freq:st.freq[s]};});
-// //     // call update functions of pie-chart and legend.
-// //     pC.update(nD);
-// //     //leg.update(nD);
-// //   })
-// //   .on("bcmouseout", function(d){
-// //     // reset the pie-chart and legend.
-// //     pC.update(tF);
-// //     //leg.update(tF);
-// //   })
-//
->>>>>>> c2a7955571740ae5627a6bceebfd50bfb490648f
-// // var piechart = d3.chartandpie.piechart().pieDim("250");
-// // piechart
-// //   .on("pmouseover", function(d){
-// //     var fD = freqData.map(function(v){return [v.State, v.freq[d.data.type]];});
-// //     //segColor(d.data.type);
-// //     d3.select(idhG).datum(fD).call(barchart);
-// //   })
-// //   .on("pmouseout", function(d){
-// //     var fD = freqData.map(function(v){return [v.State,v.total];});
-// //     d3.select(idhG).datum(fD).call(barchart);
-// //   })
-//
-// var barchart = d3.chartandpie.barchart().widthb("900").heightb("900");
-//
-// var updatebar = function(){
-//   var fD = randomDataset();
-//   d3.select(idhG).datum(fD).call(barchart);
-// };
-//
-//
-// updatebar();
-//
-// setInterval(updatebar, 5000);
-//
+function initEvent(x){
+  W.addListener(x);
+}
+
+//var w = updateWidth();
 
 
 //////////////////////////////////
 // Usage ex40.js
 /////////////////////////////////
 
-<<<<<<< HEAD
- var chart = d3.custom.barChart();
+var chart = d3.custom.barChart();
 
- function updateBAR(data, color) {
-    if (!arguments.length) {data = randomDatasetBAR(); return data};
-    if (color == undefined) {
-        color = "steelblue";
-    }
-     d3.select(idhG)
-         .datum(data)
-         .call(chart.color(color));
- }
-=======
-// var chart = d3.custom.barChart();
-//
-// function update() {
-//     var data = randomDataset();
-//     d3.select(idhG)
-//         .datum(data)
-//         .call(chart);
-// }
-//
-// update();
-//
-// setInterval(update, 1000);
->>>>>>> c2a7955571740ae5627a6bceebfd50bfb490648f
+//chart.width(updateWidth())
+////chart.update_test();
+
+
+function updateBAR(data, color) {
+   if (!arguments.length) {data = randomDatasetBAR(); return data};
+   if (color == undefined) {
+       color = "steelblue";
+   }
+
+    
+    d3.select(idhG)
+        .datum(data)
+        .call(chart.color(color));
+        //.call(chart.color(color).width(updateWidth()));
+
+}
+
+
 
 //////////////////////////////////
 // Usage ex41.js
@@ -336,21 +238,14 @@ function randomDataset() {
 
 var pie = d3.custom.pieChart();
 
-<<<<<<< HEAD
 function updatePIE(data) {
     if (!arguments.length) {data = randomDatasetPIE(); return data};
     //console.log(data)
-=======
-function update() {
-    var data = randomDataset();
-    console.log(data)
->>>>>>> c2a7955571740ae5627a6bceebfd50bfb490648f
     d3.select(idP)
         .datum(data)
         .call(pie);
 }
 
-<<<<<<< HEAD
 
 //////////////////////////////////
 // Usage ex42.js
@@ -374,21 +269,36 @@ function updateLEG(data) {
 chart
     .on("barHover", function(d,i){
         var st = freqData.filter(function(s){ return s.Podcast == d[0];})[0];
-        var nD = d3.keys(st.freq).map(function(s){ return {type:s, freq:st.freq[s]};});
+        var nD = d3.keys(st.freq).map(function(s){ return {Podcast: st.Podcast, Name:st.Name, type:s, freq:st.freq[s]};});
         updatePIE(nD);
+        updateLEG(nD);
     })
     .on("barNHover", function(d,i){
+        $("#Comment p").empty();
+        $("#Comment p").html("In general, respondents suggested as more useful: <b>Codenewbie, JSJabber and Changelog</b>.<br>They differed in their individual preference according to time programming though.</br>");
         updatePIE(tF);
+        updateLEG(tF);
     })
 
 pie
     .on("pieHover", function(d,i){
-        var fD = freqData.map(function(v){return [v.Podcast, v.freq[d.data.type]];});
+        var fD = freqData.map(function(v){return [v.Podcast, v.freq[d.data.type], v.Name];});
         var color = segColor(d.data.type);
+        //console.log(d.data.type);
+        $("#Comment p").empty();
+        if (d.data.type == "low") {
+          $("#Comment p").html("When starting programming, many considered useful <b>Codenewbie and JSJabber</b>.");
+        }else if (d.data.type == "mid") {
+          $("#Comment p").html("Those with more than 3 months coding started to enjoy more from more advanced, specific podcast like <b>ShopTalk, RubyRogues and DeveloperTea</b>.");
+        }else{
+          $("#Comment p").html("After a year, users gave less relevance to Codenewbie over the rest and started to mention more frequently <b>Changelog, SEdaily, Hanselminutes, or DotNetRocks</b>.");
+        };
         updateBAR(fD, color);
 
     })
     .on("pieNHover", function(d,i){
+        $("#Comment p").empty();
+        $("#Comment p").html("In general, respondents suggested as more useful: <b>Codenewbie, JSJabber and Changelog</b>.<br>They differed in their individual preference according to time programming though.</br>");
         updateBAR(sF, "steelblue");
     })
 
@@ -400,19 +310,11 @@ pie
 // Updating area
 /////////////////////////////////
 
-updateBAR(sF);
 
-//setInterval(updateBAR, 1000);
+updateBAR(sF);
 
 updatePIE(tF);
 
-//setInterval(updatePIE, 500);
-
 updateLEG(tF);
-=======
-update();
-
-setInterval(update, 500);
->>>>>>> c2a7955571740ae5627a6bceebfd50bfb490648f
 
 </script>
