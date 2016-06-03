@@ -2,6 +2,7 @@
 /////////////////////////////////
 
 d3.custom = {};
+
 function segColor(c){ return {low:"#807dba", mid:"#e08214",high:"#41ab5d"}[c]; }
 
 ////////////////////////////
@@ -12,9 +13,9 @@ function segColor(c){ return {low:"#807dba", mid:"#e08214",high:"#41ab5d"}[c]; }
 
 
 d3.custom.barChart = function module() {
-    var margin = {top: 20, right: 20, bottom: 40, left: 40},
-        width = 500,
-        height = 500,
+    var margin = {top: 20, right: 20, bottom: 20, left: 20},
+        width = 600,
+        height = 350,
         gap = 0,
         ease = "bounce";
     var svg;
@@ -39,9 +40,9 @@ d3.custom.barChart = function module() {
                     .scale(xScale)
                     .orient("bottom");
 
-            var yAxis = d3.svg.axis()
-                    .scale(yScale)
-                    .orient("left");
+            //var yAxis = d3.svg.axis()
+            //        .scale(yScale)
+            //        .orient("left");
 
             var barW = chartW / _data.length;
 
@@ -55,9 +56,17 @@ d3.custom.barChart = function module() {
                 container.append("g").classed("y-axis-group axis", true);
             }
 
-            svg.transition().attr({width: width, height: height});
+            chartW = width - margin.left - margin.right;
+            
+            svg
+                .transition()
+                .attr("width", "92%")
+                .attr("height", "150%")
+                .attr('viewBox', '0 0 '+width+' 350');
+                //.attr({width: width, height: height});
+                
             svg.select(".container-group")
-                .attr({transform: "translate(" + margin.left + "," + margin.top + ")"});
+                .attr({transform: "translate(" + (margin.left+15) + "," + margin.top + ")"});
 
             svg.select(".x-axis-group.axis")
                 .transition()
@@ -65,10 +74,10 @@ d3.custom.barChart = function module() {
                 .attr({transform: "translate(0," + (chartH) + ")"})
                 .call(xAxis);
 
-            svg.select(".y-axis-group.axis")
-                .transition()
-                .ease(ease)
-                .call(yAxis);
+            //svg.select(".y-axis-group.axis")
+            //    .transition()
+            //    .ease(ease)
+            //    .call(yAxis);
 
             var gapSize = xScale.rangeBand() / 100 * gap;
             var barW = xScale.rangeBand() - gapSize;
@@ -90,20 +99,8 @@ d3.custom.barChart = function module() {
                 .on("mouseover", dispatch.barHover)
                 .on("mouseout", dispatch.barNHover)
             
-            bars
-                .transition()
-                .ease(ease)
-                .attr({
-                    x: function(d, i) { return xScale(d[0]) + gapSize / 2; },
-                    width: barW,
-                    y: function(d, i) { return yScale(d[1]); },
-                    height: function(d, i) { return chartH - yScale(d[1]); },
-                    fill: color
-                });
-
-            bars.exit().transition().style({opacity: 0}).remove();            
-
             
+           
             var texts = svg.select(".chart-group")
                     .selectAll(".barvalue")
                     .data(_data);
@@ -118,19 +115,36 @@ d3.custom.barChart = function module() {
                 .attr("y", function(d,i) { return yScale(d[1])-5; })
                 .attr("text-anchor", "middle")
                 .attr("font-size", "10")                
+
             
+            bars
+                .transition()
+                .ease(ease)
+                .attr({
+                    x: function(d, i) { return xScale(d[0]) + gapSize / 2; },
+                    width: barW,
+                    y: function(d, i) { return yScale(d[1]); },
+                    height: function(d, i) { return chartH - yScale(d[1]); },
+                    fill: color
+                });
+
             
             texts
                 .transition()
                 .ease(ease)
+                .text(function(d,i){return d3.format("%")(d[1])})
                 .attr("x", function(d) {return xScale(d[0])+xScale.rangeBand()/2; })
                 .attr("y", function(d) { return yScale(d[1])-5; })        
             
+            
+            bars.exit().transition().style({opacity: 0}).remove();   
+
             texts.exit().transition().style({opacity: 0}).remove();
 
         });
     }
     
+
     exports.color = function(_x) {
         if (!arguments.length) return color;
         color = _x;
@@ -170,8 +184,8 @@ d3.custom.barChart = function module() {
 
 d3.custom.pieChart = function module() {
     var margin = {top: 10, right: 10, bottom: 10, left: 10},
-        width = 250,
-        height = 250,
+        width = 200,
+        height = 200,
         gap = 0,
         ease = "bounce";
     var svg, container;
@@ -273,30 +287,87 @@ d3.custom.pieChart = function module() {
 
 
 d3.custom.legTable = function module() {
-    var leg;
     var dispatch = d3.dispatch("legHover", "legNHover");
     function exports(_selection) {
         _selection.each(function(_data) {
 
-        //	function getLegend(d,aD){ // Utility function to compute percentage.
-        //        return d3.format("%")(d.freq/d3.sum(aD.map(function(v){ return v.freq; })));
-        //    }
-        
-        
-            if (!leg) {
-                leg = d3.select(this)
-                    .append("table")
-                    .classed("legend", true);
+        //http://stackoverflow.com/questions/14514776/updating-an-html-table-in-d3-js-using-a-reusable-chart
+        	function getLegend(d,aD){ // Utility function to compute percentage.
+                return d3.format("%")(d.freq/d3.sum(aD.map(function(v){ return v.freq; })));
             }
 
-            var tr = leg.append("tbody")
-                .selectAll("tr")
-                .data(_data)
-                .enter()
-                .append("tr");
+            if ($("table")) {
+                //console.error("yes");
+                //console.log($(".color-leg"));
+                if ($("table").length != 0) {
+                    $("table").remove();
+                }
+            }
+            
+            
+            var legend = d3.select(this)
+                            .append("table")
+                            .classed("legend", true);
+            
+            //var table = legend.select("table");
+            
+            var thead = legend.append('thead');
 
-            tr
+            var tbody = legend.append('tbody');
+            
+            
+            if ($(".color-leg")) {
+                //console.error("yes");
+                //console.log($(".color-leg"));
+                if ($(".color-leg").length != 0) {
+                    $(".color-leg").remove();
+                }
+            }
+
+            if ($(".labels-leg")) {
+                //console.error("yes");
+                //console.log($(".color-leg"));
+                if ($(".labels-leg").length != 0) {
+                    $(".labels-leg").remove();
+                }
+            }
+
+            
+            if ($(".legendPerc")) {
+                //console.error("yes");
+                //console.log($(".color-leg"));
+                if ($(".legendPerc").length != 0) {
+                    $(".legendPerc").remove();
+                }
+            }
+
+            var tt = ["","",_data[0].Name || "All-Podcasts"];
+            
+            //console.log(tt);
+            
+            thead
+                .selectAll("th")
+                .data(tt)
+                .enter()
+                .append("th")
+                .classed("thead", true)
+                .text(function(d){return d})
+                .attr("font-size", "12")
+            
+
+            var rows = tbody
+                        .selectAll('tr')
+                        .data(_data);
+
+            var cells = rows
+                            .enter()
+                            .append("tr");
+            
+
+            
+            cells                                   //col1: colors
                 .append("td")
+                .classed("color-leg",true)
                 .append("svg")
                 .attr("width", '16')
                 .attr("height", '16')
@@ -305,15 +376,15 @@ d3.custom.legTable = function module() {
                 .attr("height", '16')
                 .attr("fill",function(d){ return segColor(d.type); });
 
-            tr
+            cells                                      //col2: labels
                 .append("td")
+                .classed("labels-leg", true)
                 .text(function(d){ var v; if(d.type == "low"){v = "0-3mths"}else if(d.type == "mid"){v = "4-10mths"}else{v = "+11mths"};return v;});
-
-
-            tr
+            
+             cells                                      //col3: values
                 .append("td")
                 .attr("class",'legendPerc')
-                //.text(function(d){ return getLegend(d,lD);});
+                .text(function(d){ return getLegend(d,_data);});
 
             
         });
