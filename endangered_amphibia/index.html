@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<head>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery.tipsy/1.0.3/jquery.tipsy.css"></script>
+
+<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>-->
+<script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.11.3.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tipsy/1.0.3/jquery.tipsy.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.17/d3.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="js/sunburn.js"></script>
+<style>
+
+circle,
+path {
+  cursor: pointer;
+}
+
+circle {
+  fill: none;
+  pointer-events: all;
+}
+
+#classif {
+  position: absolute;
+  top: 650px;
+  left: 420px;
+  width: 140px;
+  text-align: center;
+  color: #666;
+  z-index: -1;
+}
+
+.node {
+  cursor: pointer;
+}
+
+.node circle {
+  fill: #fff;
+  stroke: steelblue;
+  stroke-width: 1.5px;
+}
+
+.node text {
+  font: 10px sans-serif;
+}
+
+.link {
+  fill: none;
+  stroke: #ccc;
+  stroke-width: 1.5px;
+}
+
+
+</style>
+</head>
+<body>
+<div class="jumbotron">Caudata Endangered Species Viz</div>
+<div>
+<p>Colours were chosen for species as so:</p>
+<table style="width:20%">
+<tr>
+<th>color</th><th>status</th>
+</tr>
+<tr>
+<td>red</td><td>Endangered</td>
+</tr>
+<tr>
+<td>grey</td><td>Incomplete Info</td>
+</tr>
+<tr>
+<td>blue</td><td>Non-Threatened</td>
+</tr>
+<tr>
+<td>black</td><td>Extinct</td>
+</tr>
+</table>
+<p>For every hihger taxon, the colours were blended for the species grouped in that taxon</p>
+<p style="text-align:center;">Click on the figure to know more</p>
+</div>
+<div class="container">
+<div class="row">
+<div id="chart"></div>
+<div id="classif"></div
+<footer>
+<p>Data was obtained from IUCN Red List and Amphibiaweb.org databases</p>
+<p>Work by ecccs</p>
+</footer>
+<script>
+
+//TAKEN FROM http://bl.ocks.org/mbostock/5944371: Bipartite Partition
+//
+//http://bl.ocks.org/kerryrodden/7090426
+
+var margin = {top: 350, right: 480, bottom: 350, left: 480},
+    radius = Math.min(margin.top, margin.right, margin.bottom, margin.left) - 10;
+
+
+d3.json("data/vulallCaudata_3.json", function(error, root){
+    
+    var data = root[0];
+    
+    var sb = d3.chart.sunburn();
+    sb.root(data);
+    sb("#chart");
+
+    d3.select(self.frameElement).style("height", margin.top + margin.bottom + "px");
+});
+</script>
