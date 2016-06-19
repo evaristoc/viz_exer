@@ -11,6 +11,36 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="js/sunburn.js"></script>
 <style>
+/* 
+$colorFemale: #FF1493
+$colorATQ: #FFFF00
+$colorMale: #000080
+$colorNoData: #fff
+$colorDarkGrey: #333
+$colorLightGrey: #ccc
+$colorEM: #EE7600
+*/
+/*
+.tab-set{
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: no-wrap;
+}
+  
+.tab{
+  padding: 10px;
+  width: 100%;
+  text-align: center;
+  border-radius: 5px 5px 0 0;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+*/
+
+#chart {
+  color:white;
+}
 
 circle,
 path {
@@ -58,9 +88,9 @@ circle {
 </style>
 </head>
 <body>
-<div class="jumbotron">Caudata Endangered Species Viz</div>
+<div class="jumbotron"><h2>class Amphibia: Endangered Species Viz</h2></div>
 <div>
-<p>Colours were chosen for species as so:</p>
+<p>Endangered Status Coloring were assigned at <strong>species level</strong> as so:</p>
 <table style="width:20%">
 <tr>
 <th>color</th><th>status</th>
@@ -78,14 +108,37 @@ circle {
 <td>black</td><td>Extinct</td>
 </tr>
 </table>
-<p>For every hihger taxon, the colours were blended for the species grouped in that taxon</p>
-<p style="text-align:center;">Click on the figure to know more</p>
+</br>
+<p>Assigned color for every taxon higher than species consisted in the average color of the status of the species under that taxon, except Order taxon (always green)</p>
 </div>
 <!--<div style="background:silver;">-->
+<!--
+<section>
+<div class="container tab-set">
+<div class="tab all" id="activeview">All</div>
+<div class="tab caudata">Caudata</div>
+<div class="tab other">Other</div>
+</div>
+</section>
+-->
+<section>
+<nav class="navbar navbar-default">
+<div class="container-fluid">
+<div class="navbar-header"><a class="navbar-brand" style="color:blue;" href="http://amphibiaweb.org">AmphibiaWeb</a></div>
+<ul class="nav navbar-nav">
+<li class="active"><a href="#">class Amphibia</a></li>
+<li><a href="#">order Anura</a></li>
+<li><a href="#">order Caudata</a></li>
+<li><a href="#">order Gymnophiona</a></li>
+</ul>
+</div>
+</nav>
+</section>
+<p style="text-align:center;">Click on the figure to know more</p>
 <div style="background:#2b2f35;">
 <div class="container">
 <div class="row">
-<div id="chart"></div>
+<div id="chart">Work in Progress</div>
 <!--<div id="classif"></div>-->
 </div>
 </div>
@@ -105,17 +158,39 @@ circle {
 var margin = {top: 350, right: 480, bottom: 350, left: 480},
     radius = Math.min(margin.top, margin.right, margin.bottom, margin.left) - 10;
 
+var currentli = "class Amphibia";
+$(window).ready(function(){
+  //console.log(arguments);
+  
+  console.log($(".navbar-nav").children("li").each(function( index ) {
+        console.log( index + ": " + $( this ).text() );
+    })
+  )
+  $(".navbar-nav").children("li").click(function(){
+      console.log($(this).text());
+      if ($(this).text() != currentli) {
+        $("li").removeClass("active");
+        $(this).addClass("active");
+        $("#chart").text("");
+        $("#chart").children().remove();
+        currentli = $(this).text();
+        if ($(this).text().split(" ")[1] == "Caudata") {
+          d3.json("https://gist.githubusercontent.com/evaristoc/275fdf164644f605877bf6daabe2c904/raw/795c46914579f5066cc2427f85e9804bef6a0092/caudata_iucn.json", function(error, root){
+              
+              var data = root[0];
+              
+              var sb = d3.chart.sunburn();
+              sb.root(data);
+              sb("#chart");
+          
+          
+              d3.select(self.frameElement).style("height", margin.top + margin.bottom + "px");
+          });  
+        }else{
+          $("#chart").text("Work in Progress");  
+        }
+      }
+  })
 
-d3.json("https://gist.githubusercontent.com/evaristoc/275fdf164644f605877bf6daabe2c904/raw/795c46914579f5066cc2427f85e9804bef6a0092/caudata_iucn.json"
-, function(error, root){
-    
-    var data = root[0];
-    
-    var sb = d3.chart.sunburn();
-    sb.root(data);
-    sb("#chart");
-
-    d3.select(self.frameElement).style("height", margin.top + margin.bottom + "px");
 });
 </script>
-
