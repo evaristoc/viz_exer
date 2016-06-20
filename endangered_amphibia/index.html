@@ -4,24 +4,12 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery.tipsy/1.0.3/jquery.tipsy.css"></script>
 
-<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>-->
 <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.11.3.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tipsy/1.0.3/jquery.tipsy.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.17/d3.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="js/sunburn.js"></script>
 <style>
-
-.tab{
-  padding: 10px;
-  width: 100%;
-  text-align: center;
-  border-radius: 5px 5px 0 0;
-  font-weight: 700;
-  cursor: pointer;
-  transition: background-color 0.3s;
-}
-*/
 
 #chart {
   color:white;
@@ -56,6 +44,30 @@ circle {
 </head>
 <body>
 <div class="jumbotron"><h2>class Amphibia: Endangered Species Viz</h2></div>
+<section>
+<nav class="navbar navbar-default">
+<div class="container-fluid">
+<div class="navbar-header"><a class="navbar-brand" style="color:blue;" href="http://amphibiaweb.org">AmphibiaWeb</a></div>
+<ul class="nav navbar-nav">
+<li class="active"><a href="#">class Amphibia</a></li>
+<li><a href="#">order Anura</a></li>
+<li><a href="#">order Caudata</a></li>
+<li><a href="#">order Gymnophiona</a></li>
+</ul>
+</div>
+</nav>
+<p style="text-align:center;">Click on the figure to know more</p>
+</section>
+<section>
+<div style="background:#2b2f35;">
+<div class="container">
+<div class="row">
+<div id="chart">Work in Progress</div>
+</div>
+</div>
+</div>
+</section>
+<section>
 <div>
 <p>Endangered Status Coloring were assigned at <strong>species level</strong> as so:</p>
 <table style="width:20%">
@@ -78,38 +90,7 @@ circle {
 </br>
 <p>Assigned color for every taxon higher than species consisted in the average color of the status of the species under that taxon, except Order taxon (always green)</p>
 </div>
-<!--<div style="background:silver;">-->
-<!--
-<section>
-<div class="container tab-set">
-<div class="tab all" id="activeview">All</div>
-<div class="tab caudata">Caudata</div>
-<div class="tab other">Other</div>
-</div>
 </section>
--->
-<section>
-<nav class="navbar navbar-default">
-<div class="container-fluid">
-<div class="navbar-header"><a class="navbar-brand" style="color:blue;" href="http://amphibiaweb.org">AmphibiaWeb</a></div>
-<ul class="nav navbar-nav">
-<li class="active"><a href="#">class Amphibia</a></li>
-<li><a href="#">order Anura</a></li>
-<li><a href="#">order Caudata</a></li>
-<li><a href="#">order Gymnophiona</a></li>
-</ul>
-</div>
-</nav>
-</section>
-<p style="text-align:center;">Click on the figure to know more</p>
-<div style="background:#2b2f35;">
-<div class="container">
-<div class="row">
-<div id="chart">Work in Progress</div>
-<!--<div id="classif"></div>-->
-</div>
-</div>
-</div>
 <footer>
 <p>Data was obtained from IUCN Red List and Amphibiaweb.org databases</p>
 <p>Work by ecccs</p>
@@ -127,8 +108,11 @@ var margin = {top: 350, right: 480, bottom: 350, left: 480},
 
 var currentli = "class Amphibia";
 $(window).ready(function(){
-  //console.log(arguments);
-  
+  console.log(arguments);
+  var data = {name:"Work in Progress", color:[[1,1,1]],children:[{name:"", color:[[1,1,1]],children:[{name: "", color:[[1,1,1]],children:[{name:"",color:[1,1,1],size:0}]}]}]};
+  var sb = d3.chart.sunburn();
+  sb.root(data);
+  sb("#chart");   
   console.log($(".navbar-nav").children("li").each(function( index ) {
         console.log( index + ": " + $( this ).text() );
     })
@@ -142,7 +126,7 @@ $(window).ready(function(){
         $("#chart").children().remove();
         currentli = $(this).text();
         if ($(this).text().split(" ")[1] == "Caudata") {
-          d3.json("https://gist.githubusercontent.com/evaristoc/275fdf164644f605877bf6daabe2c904/raw/795c46914579f5066cc2427f85e9804bef6a0092/caudata_iucn.json", function(error, root){
+          d3.json("data/vulallCaudata_3.json", function(error, root){
               
               var data = root[0];
               
@@ -154,10 +138,14 @@ $(window).ready(function(){
               d3.select(self.frameElement).style("height", margin.top + margin.bottom + "px");
           });  
         }else{
-          $("#chart").text("Work in Progress");  
+          //var data = [{name:"Work in Progress", color:[],children:[{color:[],children:[{color:[],children:[{color:[]}]}]}]}];
+          var sb = d3.chart.sunburn();
+          sb.root(data);
+          sb("#chart");          
+          //$("#chart").text("Work in Progress");  
         }
       }
   })
-
+  
 });
 </script>
