@@ -126,7 +126,7 @@ $(window).ready(function(){
         $("#chart").children().remove();
         currentli = $(this).text();
         if ($(this).text().split(" ")[1] == "Caudata") {
-          d3.json("data/vulallCaudata_3.json", function(error, root){
+          d3.json("https://gist.githubusercontent.com/evaristoc/275fdf164644f605877bf6daabe2c904/raw/795c46914579f5066cc2427f85e9804bef6a0092/caudata_iucn.json", function(error, root){
               
               var data = root[0];
               
