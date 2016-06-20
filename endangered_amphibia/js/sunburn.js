@@ -54,11 +54,14 @@ d3.chart.sunburn = function(){
                 .style("stroke","green")
                 .style("stroke-width", radius/3)
                 .classed("center", true);
+
+        var ct = [root.name, "Extinct: "+stats(root.color)[0],"Endagn: "+stats(root.color)[1],"NoThrt: "+stats(root.color)[2],"NoData: "+stats(root.color)[3],"Other: "+stats(root.color)[4]]
         
         textcl = groupct
                 .selectAll("text")
-                .data(["Caudata","Extinct: 0","Endagn: 258","NoThrt: 217","NoData: 205","Other: 2"])
-
+                .data(ct)
+                //.data(["Caudata","Extinct: 0","Endagn: 258","NoThrt: 217","NoData: 205","Other: 2"])
+        
           
         textcl
                 .enter()
@@ -93,11 +96,11 @@ d3.chart.sunburn = function(){
             .value(function(d) { return d.size; })
             .nodes(root)
             .forEach(function(d) {
-            d._children = d.children;
-            d.sum = d.value;
-            d.key = key(d);
-            d.fill = fill(d);
-        });
+                d._children = d.children;
+                d.sum = d.value;
+                d.key = key(d);
+                d.fill = fill(d);
+            });
 
         // Now redefine the value function to use the previously-computed sum.
         partition
@@ -112,8 +115,7 @@ d3.chart.sunburn = function(){
             .innerRadius(function(d) { return radius / 3 * d.depth; })
             .outerRadius(function(d) { return radius / 3 * (d.depth + 1) - 1; });
     
-    
-        
+       
     
         center   
             .on("click", dispatch.zoomOut);
@@ -266,8 +268,8 @@ d3.chart.sunburn = function(){
     };
     
     function fill(d) {
-      var p = d;
-      //console.log(p.name, p.depth, p.status);
+        var p = d;
+        //console.log(p.name, p.depth, p.status);
         var c = [0,0,0];
         for(var i = 0; i < p.color.length; i++){
             if (p.color.length == 1) {
@@ -309,3 +311,4 @@ d3.chart.sunburn = function(){
    
     return d3.rebind(exports, dispatch, "on");
 }
+
