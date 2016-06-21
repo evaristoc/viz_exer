@@ -122,8 +122,8 @@ $(window).ready(function(){
       if ($(this).text() != currentli) {
         $("li").removeClass("active");
         $(this).addClass("active");
-        //$("#chart").text("");
-        //$("#chart").children().remove();
+        $("#chart").text("");
+        $("#chart").children().remove();
         currentli = $(this).text();
         if ($(this).text().split(" ")[1] == "Caudata") {
           d3.json("https://gist.github.com/evaristoc/275fdf164644f605877bf6daabe2c904", function(error, root){
