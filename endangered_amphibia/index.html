@@ -122,11 +122,11 @@ $(window).ready(function(){
       if ($(this).text() != currentli) {
         $("li").removeClass("active");
         $(this).addClass("active");
-        $("#chart").text("");
-        $("#chart").children().remove();
+        //$("#chart").text("");
+        //$("#chart").children().remove();
         currentli = $(this).text();
         if ($(this).text().split(" ")[1] == "Caudata") {
-          d3.json("https://gist.github.com/evaristoc/275fdf164644f605877bf6daabe2c904", function(error, root){
+          d3.json("https://gist.githubusercontent.com/evaristoc/275fdf164644f605877bf6daabe2c904/raw/795c46914579f5066cc2427f85e9804bef6a0092/caudata_iucn.json", function(error, root){
               
               var data = root[0];
               
@@ -138,7 +138,7 @@ $(window).ready(function(){
               d3.select(self.frameElement).style("height", margin.top + margin.bottom + "px");
           });  
         }else if ($(this).text().split(" ")[1] == "Anura") {
-          d3.json("https://gist.github.com/evaristoc/28a08ef50fedf29c63c57c5d464360d4", function(error, root){
+          d3.json("https://gist.githubusercontent.com/evaristoc/28a08ef50fedf29c63c57c5d464360d4/raw/f8ee094ad848cf8f3ef7e9c2964c27eae9ce98a7/anura_iucn.json", function(error, root){
               
               var data = root[0];
               
@@ -150,7 +150,7 @@ $(window).ready(function(){
               d3.select(self.frameElement).style("height", margin.top + margin.bottom + "px");
           });
         }else if ($(this).text().split(" ")[1] == "Gymnophiona") {
-          d3.json("https://gist.github.com/evaristoc/7b1158f7015872b39c498f0b324a6d7c", function(error, root){
+          d3.json("https://gist.githubusercontent.com/evaristoc/7b1158f7015872b39c498f0b324a6d7c/raw/0df60ba776c165ece7fec28a6406d4265ff58327/gymnophiona_iucn.json", function(error, root){
               
               var data = root[0];
               
