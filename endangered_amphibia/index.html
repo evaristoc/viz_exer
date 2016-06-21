@@ -48,7 +48,6 @@ circle {
 <nav class="navbar navbar-default">
 <div class="container-fluid">
 <div class="navbar-header"><a class="navbar-brand" style="color:blue;" href="http://amphibiaweb.org">AmphibiaWeb: Vulnerability Viz</a></div>
-
 <ul class="nav navbar-nav">
 <li class="active"><a href="#">class Amphibia</a></li>
 <li><a href="#">order Anura</a></li>
@@ -63,7 +62,7 @@ circle {
 <div style="background:#2b2f35;">
 <div class="container">
 <div class="row">
-<div id="chart"></div>
+<div id="chart"><h2>AMPHIBIA DECLINE: VULNERABILITY TRENDS</h2></div>
 </div>
 </div>
 </div>
@@ -127,7 +126,31 @@ $(window).ready(function(){
         $("#chart").children().remove();
         currentli = $(this).text();
         if ($(this).text().split(" ")[1] == "Caudata") {
-          d3.json("https://gist.githubusercontent.com/evaristoc/275fdf164644f605877bf6daabe2c904/raw/795c46914579f5066cc2427f85e9804bef6a0092/caudata_iucn.json", function(error, root){
+          d3.json("data/vulallCaudata_3.json", function(error, root){
+              
+              var data = root[0];
+              
+              var sb = d3.chart.sunburn();
+              sb.root(data);
+              sb("#chart");
+          
+          
+              d3.select(self.frameElement).style("height", margin.top + margin.bottom + "px");
+          });  
+        }else if ($(this).text().split(" ")[1] == "Anura") {
+          d3.json("data/vulallAnura_3.json", function(error, root){
+              
+              var data = root[0];
+              
+              var sb = d3.chart.sunburn();
+              sb.root(data);
+              sb("#chart");
+          
+          
+              d3.select(self.frameElement).style("height", margin.top + margin.bottom + "px");
+          });
+        }else if ($(this).text().split(" ")[1] == "Gymnophiona") {
+          d3.json("data/vulallGymnophiona_3.json", function(error, root){
               
               var data = root[0];
               
