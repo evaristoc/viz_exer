@@ -62,7 +62,7 @@ circle {
 <div style="background:#2b2f35;">
 <div class="container">
 <div class="row">
-<div id="chart"><h2>AMPHIBIA DECLINE: VULNERABILITY TRENDS</h2></div>
+<div id="chart"><h2 style="text-align:center;">AMPHIBIA DECLINE: VULNERABILITY TRENDS</h2></div>
 </div>
 </div>
 </div>
@@ -163,6 +163,7 @@ $(window).ready(function(){
           });  
         }else{
           //var data = [{name:"Work in Progress", color:[],children:[{color:[],children:[{color:[],children:[{color:[]}]}]}]}];
+          $("#chart").html("<h2 style:'text-align:center;'>AMPHIBIA DECLINE: VULNERABILITY TRENDS</h2>")
           var sb = d3.chart.sunburn();
           sb.root(data);
           sb("#chart");          
