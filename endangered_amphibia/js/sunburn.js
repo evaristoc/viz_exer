@@ -19,6 +19,8 @@ d3.chart.sunburn = function(){
     var dispatch = d3.dispatch(exports, ["zoomIn", "zoomOut"])
     
     function exports(slc){
+        //$(slc).children().remove();
+        
         svg = d3.select(slc).append("svg")
             .attr("width", margin.left + margin.right)
             .attr("height", margin.top + margin.bottom)
@@ -79,7 +81,11 @@ d3.chart.sunburn = function(){
         path = svg.selectAll("path")
                 .data(partition.nodes(root).slice(1))
                 .enter()
-                .append("path")         
+                .append("path")
+                //.style("fill","white")
+
+        
+        $(slc).fadeIn(1000);
         
         update();
 
@@ -121,6 +127,7 @@ d3.chart.sunburn = function(){
             .on("click", dispatch.zoomOut);
             
         path
+            //.transition()
             .attr("d", arc)
             .style("fill", function(d) { return d.fill; })
             .each(function(d) { this._current = updateArc(d); })
@@ -143,7 +150,7 @@ d3.chart.sunburn = function(){
   // Zoom to the specified new root.
     function zoom(root, p) {
         if (document.documentElement.__transition__) return;
-        console.log(p.depth)
+        //console.log(p.depth)
         // Rescale outside angles to match the new layout.
         var enterArc,
             exitArc,
@@ -184,7 +191,7 @@ d3.chart.sunburn = function(){
                 .selectAll("text")
                 //.data([Math.random(),2,3,4,5,6])
                 .data(function(d){ //WHY d WORKS? Because even after removing, my cells in groupct container for textcl are still 6!!
-                    console.log(p.name, p.parent.name, p.depth, stats(p.color));
+                    //console.log(p.name, p.parent.name, p.depth, stats(p.color));
                     if(p.depth == 1){
                         var arr = [p.parent.name].concat(stats(p.parent.color));
                         return [arr[0], "Extinct: "+arr[1], "Endgn: "+arr[2], "NoThrt: "+arr[3], "NoData: "+arr[4], "Other: "+arr[5]];
@@ -232,7 +239,7 @@ d3.chart.sunburn = function(){
             var lineNumber = 0;
             var ynum = txt.attr("y") - 30;
             //var dynum = parseFloat(txt.attr("dy"));
-            console.log(dynum);
+            //console.log(dynum);
             tspan = txt.text(word).append("tspan").attr("y", ynum + 10);
 
         })
@@ -311,4 +318,3 @@ d3.chart.sunburn = function(){
    
     return d3.rebind(exports, dispatch, "on");
 }
-
