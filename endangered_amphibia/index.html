@@ -10,36 +10,28 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="js/sunburn.js"></script>
 <style>
-
 #chart {
-  color:white;
+  color:grey;
 }
-
 circle,
 path {
   cursor: pointer;
 }
-
 circle {
   fill: none;
   pointer-events: all;
 }
-
 .node {
   cursor: pointer;
 }
-
 .node text {
   font: 10px sans-serif;
 }
-
 .link {
   fill: none;
   stroke: #ccc;
   stroke-width: 1.5px;
 }
-
-
 </style>
 </head>
 <body>
@@ -62,7 +54,9 @@ circle {
 <div><!--<div style="background:#2b2f35;">-->
 <div class="container">
 <div class="row">
-<div id="chart"><h2 style="text-align:center;">AMPHIBIA DECLINE: VULNERABILITY TRENDS</h2></div>
+<div id="chart">
+<h2 style="text-align:center;">AMPHIBIA DECLINE: VULNERABILITY TRENDS</h2>
+</div>
 </div>
 </div>
 </div>
@@ -108,66 +102,82 @@ var margin = {top: 350, right: 480, bottom: 350, left: 480},
 
 var currentli = "class Amphibia";
 $(window).ready(function(){
-  console.log(arguments);
+  //console.log(arguments);
   var data = {name:"Work in Progress", color:[[1,1,1]],children:[{name:"", color:[[1,1,1]],children:[{name: "", color:[[1,1,1]],children:[{name:"",color:[1,1,1],size:0}]}]}]};
   var sb = d3.chart.sunburn();
   sb.root(data);
   sb("#chart");   
-  console.log($(".navbar-nav").children("li").each(function( index ) {
-        console.log( index + ": " + $( this ).text() );
-    })
-  )
+  //console.log($(".navbar-nav").children("li").each(function( index ) {
+  //      console.log( index + ": " + $( this ).text() );
+  //  })
+  //)
   $(".navbar-nav").children("li").click(function(){
       console.log($(this).text());
       if ($(this).text() != currentli) {
         $("li").removeClass("active");
         $(this).addClass("active");
-        $("#chart").text("");
-        $("#chart").children().remove();
         currentli = $(this).text();
+        //$("#chart").fadeOut(3000); 
+        //$("#chart").text("");
+        //$("#chart").children().remove();        
+        
         if ($(this).text().split(" ")[1] == "Caudata") {
-          d3.json("https://gist.githubusercontent.com/evaristoc/275fdf164644f605877bf6daabe2c904/raw/795c46914579f5066cc2427f85e9804bef6a0092/caudata_iucn.json", function(error, root){
-              
+          $("#chart").fadeOut(3000, function(){
+            var slc = this;
+            $(slc).children().remove();
+            d3.json("data/vulallCaudata_3.json", function(error, root){
+              //$("#chart").children().remove();
+              //console.log($(slc));
+              //console.log("data run");
               var data = root[0];
-              
+              console.log($('#chart').length)
               var sb = d3.chart.sunburn();
               sb.root(data);
               sb("#chart");
-          
-          
               d3.select(self.frameElement).style("height", margin.top + margin.bottom + "px");
-          });  
+            
+            });           
+          
+          });
+          
         }else if ($(this).text().split(" ")[1] == "Anura") {
-          d3.json("https://gist.githubusercontent.com/evaristoc/28a08ef50fedf29c63c57c5d464360d4/raw/f8ee094ad848cf8f3ef7e9c2964c27eae9ce98a7/anura_iucn.json", function(error, root){
-              
-              var data = root[0];
-              
-              var sb = d3.chart.sunburn();
-              sb.root(data);
-              sb("#chart");
-          
-          
-              d3.select(self.frameElement).style("height", margin.top + margin.bottom + "px");
+          $("#chart").fadeOut(2000, function(){
+            var slc = this;
+            $(slc).children().remove();  
+        
+            d3.json("data/vulallAnura_3.json", function(error, root){
+                
+                var data = root[0];
+                var sb = d3.chart.sunburn();
+                sb.root(data);
+                sb("#chart");
+                d3.select(self.frameElement).style("height", margin.top + margin.bottom + "px");
+            });
           });
         }else if ($(this).text().split(" ")[1] == "Gymnophiona") {
-          d3.json("https://gist.githubusercontent.com/evaristoc/7b1158f7015872b39c498f0b324a6d7c/raw/0df60ba776c165ece7fec28a6406d4265ff58327/gymnophiona_iucn.json", function(error, root){
-              
-              var data = root[0];
-              
-              var sb = d3.chart.sunburn();
-              sb.root(data);
-              sb("#chart");
-          
-          
-              d3.select(self.frameElement).style("height", margin.top + margin.bottom + "px");
-          });  
+          $("#chart").fadeOut(2000, function(){
+            var slc = this;
+            $(slc).children().remove();            
+            
+            d3.json("data/vulallGymnophiona_3.json", function(error, root){
+                
+                var data = root[0];
+                var sb = d3.chart.sunburn();
+                sb.root(data);
+                sb("#chart");
+                d3.select(self.frameElement).style("height", margin.top + margin.bottom + "px");
+            });
+          });
         }else{
-          //var data = [{name:"Work in Progress", color:[],children:[{color:[],children:[{color:[],children:[{color:[]}]}]}]}];
-          $("#chart").html("<h2 style ='text-align:center;'>AMPHIBIA DECLINE: VULNERABILITY TRENDS</h2>")
-          var sb = d3.chart.sunburn();
-          sb.root(data);
-          sb("#chart");          
-          //$("#chart").text("Work in Progress");  
+          $("#chart").fadeOut(2000, function(){
+            var slc = this;
+            $(slc).children().remove();   
+            //var data = [{name:"Work in Progress", color:[],children:[{color:[],children:[{color:[],children:[{color:[]}]}]}]}];
+            //var sb = d3.chart.sunburn();
+            sb.root(data);
+            sb("#chart");          
+            //$("#chart").text("Work in Progress");  
+          });
         }
       }
   })
