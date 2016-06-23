@@ -20,8 +20,13 @@ d3.chart.sunburn = function(){
     
     function exports(slc){
         //$(slc).children().remove();
-        
-        svg = d3.select(slc).append("svg")
+        //console.log("here",d3.select(slc))
+        if ($("#chart").children()) {
+            $("#chart").children().remove();
+        }
+
+        svg = d3.select(slc)
+            .append("svg")
             .attr("width", margin.left + margin.right)
             .attr("height", margin.top + margin.bottom)
             .append("g")
@@ -86,6 +91,7 @@ d3.chart.sunburn = function(){
 
         
         $(slc).fadeIn(1000);
+        //$(slc).css("display", "");
         
         update();
 
