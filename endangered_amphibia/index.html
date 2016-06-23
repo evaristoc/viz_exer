@@ -51,18 +51,18 @@ circle {
 <p style="text-align:center;"><strong>Click on the figure to know more</strong></p>
 </section>
 <section>
-<div><!--<div style="background:#2b2f35;">-->
+<div class="aaa"><!--<div style="background:#2b2f35;">-->
 <div class="container">
-<div class="row" style="height:50%">
+<table class="table" id="chcont">
+<tr style="width: 100%;">
+<td style="height:700px;">
 <div id="chart">
 <h2 style="text-align:center;">AMPHIBIA DECLINE: VULNERABILITY TRENDS</h2>
 </div>
-</div>
-</div>
-</div>
-</section>
-<section>
-<div>
+</td>
+</tr>
+<tr>
+<td>
 <p>Endangered Status Coloring were assigned at <strong>species level</strong> as so:</p>
 <table style="width:20%">
 <tr>
@@ -79,12 +79,17 @@ circle {
 </tr>
 <tr>
 <td>black</td><td>Extinct</td>
-</tr>
-</table>
 </br>
 <p>Assigned color for every taxon higher than species consisted in the average color of the status of the species under that taxon, except Order taxon (always green)</p>
-</div>
+</tr>
 </section>
+</tr>
+</table>
+</td>
+</tr>
+</table>
+</div><!--end div container-->
+</div><!--end div aaa -->
 <footer>
 <p>Data was obtained from IUCN Red List and Amphibiaweb.org databases</p>
 <p>Work by ecccs</p>
@@ -96,7 +101,9 @@ circle {
 //http://bl.ocks.org/kerryrodden/7090426
 //
 ////"https://gist.githubusercontent.com/evaristoc/275fdf164644f605877bf6daabe2c904/raw/795c46914579f5066cc2427f85e9804bef6a0092/caudata_iucn.json"
-
+////"https://gist.githubusercontent.com/evaristoc/28a08ef50fedf29c63c57c5d464360d4/raw/f8ee094ad848cf8f3ef7e9c2964c27eae9ce98a7/anura_iucn.json"
+////"https://gist.githubusercontent.com/evaristoc/7b1158f7015872b39c498f0b324a6d7c/raw/0df60ba776c165ece7fec28a6406d4265ff58327/gymnophiona_iucn.json"
+//
 var margin = {top: 350, right: 480, bottom: 350, left: 480},
     radius = Math.min(margin.top, margin.right, margin.bottom, margin.left) - 10;
 
@@ -122,17 +129,18 @@ $(window).ready(function(){
         //$("#chart").children().remove();        
         
         if ($(this).text().split(" ")[1] == "Caudata") {
-          $("#chart").fadeOut(3000, function(){
+          $("#chart").fadeOut(2000, function(){
             var slc = this;
-            $(slc).children().remove();
-            d3.json("https://gist.githubusercontent.com/evaristoc/275fdf164644f605877bf6daabe2c904/raw/795c46914579f5066cc2427f85e9804bef6a0092/caudata_iucn.json"
-, function(error, root){
+            console.log($("#chart"));
+            //$("#chart").children().remove();
+            //$(slc).add("<svg width="+margin.left + margin.right+" height="+margin.top + margin.bottom+"><svg>");
+            d3.json("data/vulallCaudata_3.json", function(error, root){
               //$("#chart").children().remove();
               //console.log($(slc));
               //console.log("data run");
               var data = root[0];
               console.log($('#chart').length)
-              var sb = d3.chart.sunburn();
+              //var sb = d3.chart.sunburn();
               sb.root(data);
               sb("#chart");
               d3.select(self.frameElement).style("height", margin.top + margin.bottom + "px");
@@ -144,13 +152,13 @@ $(window).ready(function(){
         }else if ($(this).text().split(" ")[1] == "Anura") {
           $("#chart").fadeOut(2000, function(){
             var slc = this;
-            $(slc).children().remove();  
-        
-            d3.json("https://gist.githubusercontent.com/evaristoc/28a08ef50fedf29c63c57c5d464360d4/raw/f8ee094ad848cf8f3ef7e9c2964c27eae9ce98a7/anura_iucn.json"
-, function(error, root){
+            //$(slc).children().remove();  
+            //$("#chart").attr({width:950,height:700})
+            //$(slc).add("<svg width="+margin.left + margin.right+" height="+margin.top + margin.bottom+"><svg>");
+            d3.json("data/vulallAnura_3.json", function(error, root){
                 
                 var data = root[0];
-                var sb = d3.chart.sunburn();
+                //var sb = d3.chart.sunburn();
                 sb.root(data);
                 sb("#chart");
                 d3.select(self.frameElement).style("height", margin.top + margin.bottom + "px");
@@ -159,13 +167,12 @@ $(window).ready(function(){
         }else if ($(this).text().split(" ")[1] == "Gymnophiona") {
           $("#chart").fadeOut(2000, function(){
             var slc = this;
-            $(slc).children().remove();            
-            
-            d3.json("https://gist.githubusercontent.com/evaristoc/7b1158f7015872b39c498f0b324a6d7c/raw/0df60ba776c165ece7fec28a6406d4265ff58327/gymnophiona_iucn.json"
-, function(error, root){
+            //$(slc).children().remove();            
+            //$(slc).add("<svg width="+margin.left + margin.right+" height="+margin.top + margin.bottom+"><svg>");
+            d3.json("data/vulallGymnophiona_3.json", function(error, root){
                 
                 var data = root[0];
-                var sb = d3.chart.sunburn();
+                //var sb = d3.chart.sunburn();
                 sb.root(data);
                 sb("#chart");
                 d3.select(self.frameElement).style("height", margin.top + margin.bottom + "px");
@@ -174,7 +181,8 @@ $(window).ready(function(){
         }else{
           $("#chart").fadeOut(2000, function(){
             var slc = this;
-            $(slc).children().remove();   
+            //$(slc).children().remove();
+            //$(slc).add("<svg width="+margin.left + margin.right+" height="+margin.top + margin.bottom+"><svg>");
             //var data = [{name:"Work in Progress", color:[],children:[{color:[],children:[{color:[],children:[{color:[]}]}]}]}];
             //var sb = d3.chart.sunburn();
             sb.root(data);
